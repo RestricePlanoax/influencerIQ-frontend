@@ -158,10 +158,6 @@ const Analytics: React.FC = () => {
               data={mockAnalyticsData.engagement} 
               color="rgb(16, 185, 129)"
               valueSuffix="%"
-              data={mockAnalyticsData.engagement.map(item => ({
-                date: item.date,
-                value: item.value * 100
-              }))}
             />
           </div>
           
