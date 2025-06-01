@@ -24,7 +24,7 @@
     ],
   
     "env": {
-      "VITE_API_URL": "https://influencer-iq-backend.vercel.app/",
+      "VITE_API_URL": "https://influencer-iq-backend.vercel.app",
       "NODE_ENV": "production"
     },
     "headers": [
