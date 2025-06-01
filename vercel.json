@@ -11,16 +11,18 @@
         "use": "@vercel/node"
       }
     ],
-    "redirects": [
+  
+      "rewrites": [
       {
-        "src": "/api/(.*)",
-        "dest": "/api/$1.js"
+        "source": "/api/:path*",
+        "destination": "/api/:path*.js"
       },
       {
-        "src": "/(.*)",
-        "dest": "/index.html"
+        "source": "/:path*",
+        "destination": "/index.html"
       }
     ],
+  
     "env": {
       "VITE_API_URL": "https://api.yourdomain.com",
       "NODE_ENV": "production"
