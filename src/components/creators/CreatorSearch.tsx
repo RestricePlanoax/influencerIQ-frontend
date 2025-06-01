@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Sparkles } from 'lucide-react';
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 interface CreatorSearchProps {
   onResults: (creators: any[]) => void;
@@ -17,7 +18,7 @@ const CreatorSearch: React.FC<CreatorSearchProps> = ({ onResults }) => {
     setIsSearching(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/creators/search?q=${encodeURIComponent(
+        `${baseUrl}/api/v1/creators/search?q=${encodeURIComponent(
           searchQuery.trim()
         )}`
       );
@@ -37,7 +38,7 @@ const CreatorSearch: React.FC<CreatorSearchProps> = ({ onResults }) => {
     e.preventDefault();
     setIsSearching(true);
     try {
-      const res = await fetch('http://localhost:5000/api/v1/creators/ai-search', {
+      const res = await fetch(`${baseUrl}/api/v1/creators/ai-search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: aiPrompt }),

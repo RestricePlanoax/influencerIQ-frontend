@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns'; // if you want any date formatting later
 import { Creator } from '../../types'; // define the Creator interface in src/types.ts
 import { Spinner } from '../common/Spinner'; // a simple loading spinner component (if you have one)
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 interface CreatorsResponse {
   creators: Creator[];
@@ -27,7 +28,7 @@ const CreatorsList: React.FC = () => {
       setError(null);
 
       try {
-        const res = await fetch('http://localhost:5000/api/v1/creators');
+        const res = await fetch(`${baseUrl}/api/v1/creators`);
         if (!res.ok) {
           throw new Error(`Failed to fetch creators: ${res.statusText}`);
         }

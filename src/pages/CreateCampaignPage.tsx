@@ -2,11 +2,12 @@
 
 import React from 'react';
 import CampaignWizard from '../components/campaigns/CampaignWizard/CampaignWizard';
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 const CreateCampaignPage: React.FC = () => {
   const handleSubmitCampaign = async (campaignData: any) => {
     try {
-      const res = await fetch('http://localhost:5000/api/v1/campaigns', {
+      const res = await fetch(`${baseUrl}/api/v1/campaigns`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(campaignData),

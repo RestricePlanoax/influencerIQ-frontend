@@ -23,6 +23,7 @@ import KpiCardsSection from '../components/dashboard/KpiCardsSection';
 import CampaignOverviewCard from '../components/dashboard/CampaignOverviewCard';
 import NotificationItem from '../components/dashboard/NotificationItem';
 import { mockNotifications } from '../mockData';
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 interface CampaignsOverview {
   active: number;
@@ -95,7 +96,7 @@ const Dashboard: React.FC = () => {
       setCampaignsError(null);
 
       try {
-        const res = await fetch('http://localhost:5000/api/v1/campaigns/overview');
+        const res = await fetch(`${baseUrl}/api/v1/campaigns/overview`);
         if (!res.ok) {
           throw new Error(`Failed to fetch campaigns overview: ${res.statusText}`);
         }
@@ -123,7 +124,7 @@ const Dashboard: React.FC = () => {
       setAiError(null);
 
       try {
-        const res = await fetch('http://localhost:5000/api/v1/ai-insights');
+        const res = await fetch(`${baseUrl}/api/v1/ai-insights`);
         if (!res.ok) {
           throw new Error(`Failed to fetch AI insights: ${res.statusText}`);
         }

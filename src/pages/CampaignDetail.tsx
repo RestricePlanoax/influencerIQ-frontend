@@ -6,6 +6,7 @@ import CampaignDetail from '../components/campaigns/CampaignDetail';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorAlert from '../components/common/ErrorAlert';
 import { Campaign } from '../types';
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 const CampaignDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,7 +28,7 @@ const CampaignDetailPage: React.FC = () => {
       setError(null);
 
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/campaigns/${id}`);
+        const res = await fetch(`${baseUrl}/api/v1/campaigns/${id}`);
         if (res.status === 404) {
           setError('Campaign not found');
           setIsLoading(false);

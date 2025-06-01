@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import KpiCard from './KpiCard';
 import { DollarSign, Users, TrendingUp, Target, FileText, Clock, ArrowRight, Plus, Search, MessageSquare, Bell, Sparkles, BarChart2, Star, Zap } from 'lucide-react';
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 export type MetricFromBE = {
   key: string;
@@ -53,7 +54,7 @@ const KpiCardsSection: React.FC = () => {
       setError(null);
 
       try {
-        const res = await fetch('http://localhost:5000/api/v1/metrics/read');
+        const res = await fetch(`${baseUrl}/api/v1/metrics/read`);
         if (!res.ok) {
           throw new Error(`Failed to fetch metrics: ${res.statusText}`);
         }

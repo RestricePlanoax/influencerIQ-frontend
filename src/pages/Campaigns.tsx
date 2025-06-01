@@ -7,6 +7,7 @@ import CampaignListItem from '../components/campaigns/CampaignListItem';
 import EmptyState from '../components/common/EmptyState';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { Campaign } from '../types';
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 const Campaigns: React.FC = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -19,7 +20,7 @@ const Campaigns: React.FC = () => {
     const fetchCampaigns = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch('http://localhost:5000/api/v1/campaigns');
+        const res = await fetch(`${baseUrl}/api/v1/campaigns`);
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json();
         setCampaigns(data.campaigns);
@@ -47,7 +48,7 @@ const Campaigns: React.FC = () => {
   const handleCampaignAction = (action: string, campaignId: number) => {
     if (action === 'pause' || action === 'activate') {
       const newStatus = action === 'pause' ? 'paused' : 'active';
-      fetch(`http://localhost:5000/api/v1/campaigns/${campaignId}/status`, {
+      fetch(`{baseUrl}/api/v1/campaigns/${campaignId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),

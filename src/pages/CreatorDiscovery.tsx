@@ -7,6 +7,7 @@ import CreatorCard from '../components/creators/CreatorCard';
 import CreatorListItem from '../components/creators/CreatorListItem';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
+const baseUrl = import.meta.env.VITE_API_URL || "";
 
 interface Creator {
   id: string;
@@ -50,7 +51,7 @@ const CreatorDiscovery: React.FC = () => {
     const fetchAll = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch('http://localhost:5000/api/v1/creators');
+        const res = await fetch(`${baseUrl}/api/v1/creators`);
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json(); // { creators: [...] }
         setCreators(data.creators);
@@ -77,7 +78,7 @@ const CreatorDiscovery: React.FC = () => {
   const handleApplyFilters = async (filters: Filters) => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/v1/creators/filter', {
+      const res = await fetch(`${baseUrl}/api/v1/creators/filter`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(filters),
@@ -192,7 +193,7 @@ const CreatorDiscovery: React.FC = () => {
             onClick: () => {
               // Clear all filters by re-fetching entire list
               setIsLoading(true);
-              fetch('http://localhost:5000/api/v1/creators')
+              fetch(`${baseUrl}/api/v1/creators`)
                 .then((r) => r.json())
                 .then((data) => setCreators(data.creators))
                 .catch((e) => console.error(e))
