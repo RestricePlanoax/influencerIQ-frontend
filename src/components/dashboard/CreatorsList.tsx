@@ -28,7 +28,7 @@ const CreatorsList: React.FC = () => {
       setError(null);
 
       try {
-        const res = await fetch(`${baseUrl}/api/v1/creators`);
+        const res = await fetch(`${baseUrl}/v1/creators`);
         if (!res.ok) {
           throw new Error(`Failed to fetch creators: ${res.statusText}`);
         }

@@ -96,7 +96,7 @@ const Dashboard: React.FC = () => {
       setCampaignsError(null);
 
       try {
-        const res = await fetch(`${baseUrl}/api/v1/campaigns/overview`);
+        const res = await fetch(`${baseUrl}/v1/campaigns/overview`);
         if (!res.ok) {
           throw new Error(`Failed to fetch campaigns overview: ${res.statusText}`);
         }

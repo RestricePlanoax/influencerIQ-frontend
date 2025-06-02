@@ -20,7 +20,7 @@ const Campaigns: React.FC = () => {
     const fetchCampaigns = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(`${baseUrl}/api/v1/campaigns`);
+        const res = await fetch(`${baseUrl}/v1/campaigns`);
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json();
         setCampaigns(data.campaigns);
@@ -48,7 +48,7 @@ const Campaigns: React.FC = () => {
   const handleCampaignAction = (action: string, campaignId: number) => {
     if (action === 'pause' || action === 'activate') {
       const newStatus = action === 'pause' ? 'paused' : 'active';
-      fetch(`{baseUrl}/api/v1/campaigns/${campaignId}/status`, {
+      fetch(`{baseUrl}/v1/campaigns/${campaignId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),

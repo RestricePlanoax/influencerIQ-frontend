@@ -54,7 +54,7 @@ const KpiCardsSection: React.FC = () => {
       setError(null);
 
       try {
-        const res = await fetch(`${baseUrl}/api/v1/metrics/read`);
+        const res = await fetch(`${baseUrl}/v1/metrics/read`);
         if (!res.ok) {
           throw new Error(`Failed to fetch metrics: ${res.statusText}`);
         }

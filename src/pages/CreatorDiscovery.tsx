@@ -51,7 +51,7 @@ const CreatorDiscovery: React.FC = () => {
     const fetchAll = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(`${baseUrl}/api/v1/creators`);
+        const res = await fetch(`${baseUrl}/v1/creators`);
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json(); // { creators: [...] }
         setCreators(data.creators);
@@ -78,7 +78,7 @@ const CreatorDiscovery: React.FC = () => {
   const handleApplyFilters = async (filters: Filters) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${baseUrl}/api/v1/creators/filter`, {
+      const res = await fetch(`${baseUrl}/v1/creators/filter`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(filters),

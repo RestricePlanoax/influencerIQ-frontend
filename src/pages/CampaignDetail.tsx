@@ -28,7 +28,7 @@ const CampaignDetailPage: React.FC = () => {
       setError(null);
 
       try {
-        const res = await fetch(`${baseUrl}/api/v1/campaigns/${id}`);
+        const res = await fetch(`${baseUrl}/v1/campaigns/${id}`);
         if (res.status === 404) {
           setError('Campaign not found');
           setIsLoading(false);
