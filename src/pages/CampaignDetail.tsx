@@ -6,7 +6,7 @@ import CampaignDetail from '../components/campaigns/CampaignDetail';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorAlert from '../components/common/ErrorAlert';
 import { Campaign } from '../types';
-const baseUrl = import.meta.env.VITE_API_URL || "";
+const baseUrl = "https://influencer-iq-backend.vercel.app"|| "";
 
 const CampaignDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

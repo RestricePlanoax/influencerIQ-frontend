@@ -7,7 +7,7 @@ import CreatorCard from '../components/creators/CreatorCard';
 import CreatorListItem from '../components/creators/CreatorListItem';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import EmptyState from '../components/common/EmptyState';
-const baseUrl = import.meta.env.VITE_API_URL || "";
+const baseUrl = "https://influencer-iq-backend.vercel.app" || "";
 
 interface Creator {
   id: string;

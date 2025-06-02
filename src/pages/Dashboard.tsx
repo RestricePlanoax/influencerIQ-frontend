@@ -23,7 +23,7 @@ import KpiCardsSection from '../components/dashboard/KpiCardsSection';
 import CampaignOverviewCard from '../components/dashboard/CampaignOverviewCard';
 import NotificationItem from '../components/dashboard/NotificationItem';
 import { mockNotifications } from '../mockData';
-const baseUrl = import.meta.env.VITE_API_URL || "";
+const baseUrl = "https://influencer-iq-backend.vercel.app"|| "";
 
 interface CampaignsOverview {
   active: number;

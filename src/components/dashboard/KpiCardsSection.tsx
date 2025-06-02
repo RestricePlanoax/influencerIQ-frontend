@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import KpiCard from './KpiCard';
 import { DollarSign, Users, TrendingUp, Target, FileText, Clock, ArrowRight, Plus, Search, MessageSquare, Bell, Sparkles, BarChart2, Star, Zap } from 'lucide-react';
-const baseUrl = import.meta.env.VITE_API_URL || "";
+const baseUrl = "https://influencer-iq-backend.vercel.app"|| "";
 
 export type MetricFromBE = {
   key: string;

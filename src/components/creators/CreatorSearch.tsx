@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Sparkles } from 'lucide-react';
-const baseUrl = import.meta.env.VITE_API_URL || "";
+const baseUrl = "https://influencer-iq-backend.vercel.app" || "";
 
 interface CreatorSearchProps {
   onResults: (creators: any[]) => void;

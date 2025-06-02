@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CampaignWizard from '../components/campaigns/CampaignWizard/CampaignWizard';
-const baseUrl = import.meta.env.VITE_API_URL || "";
+const baseUrl = "https://influencer-iq-backend.vercel.app" || "";
 
 const CreateCampaignPage: React.FC = () => {
   const handleSubmitCampaign = async (campaignData: any) => {

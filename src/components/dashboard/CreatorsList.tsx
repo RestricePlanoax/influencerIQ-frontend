@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns'; // if you want any date formatting later
 import { Creator } from '../../types'; // define the Creator interface in src/types.ts
 import { Spinner } from '../common/Spinner'; // a simple loading spinner component (if you have one)
-const baseUrl = import.meta.env.VITE_API_URL || "";
+const baseUrl = "https://influencer-iq-backend.vercel.app"|| "";
 
 interface CreatorsResponse {
   creators: Creator[];
