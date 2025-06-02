@@ -296,4 +296,5 @@ Best regards,
     </div>
   );
 };
+
 export default OutreachManagement;
