@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Phone, Settings, Sparkles } from 'lucide-react';
+import { Search, Phone, Settings, Sparkles, Plus, DollarSign, Calendar, X } from 'lucide-react';
 import VoiceCallModal from './VoiceCallModal';
 
 interface Message {
@@ -19,12 +19,18 @@ interface Conversation {
   unreadCount: number;
 }
 
+interface QuickProposal {
+  compensation: number;
+  timeline: string;
+  deliverables: string[];
+}
+
 const Inbox: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
   const [showVoiceCall, setShowVoiceCall] = useState(false);
-  const [newMessage, setNewMessage] = useState('');
-  const [proposal, setProposal] = useState({
+  const [showProposalForm, setShowProposalForm] = useState(false);
+  const [proposal, setProposal] = useState<QuickProposal>({
     compensation: 1500,
     timeline: '2 weeks',
     deliverables: ['1 Instagram post', '3 stories']
@@ -56,14 +62,6 @@ const Inbox: React.FC = () => {
       lastMessage: "I accept the terms! Let's move forward.",
       timestamp: '3h ago',
       unreadCount: 1
-    },
-    {
-      id: '4',
-      creatorName: 'David Kim',
-      creatorStatus: 'pending',
-      lastMessage: 'Can we schedule a call to discuss this?',
-      timestamp: '1d ago',
-      unreadCount: 0
     }
   ];
 
@@ -74,30 +72,6 @@ const Inbox: React.FC = () => {
       text: "Hi! I'm your AI negotiation assistant. I'll help facilitate the discussion between you and Sarah Johnson. What terms would you like to propose?",
       sender: 'assistant',
       timestamp: '6:09:13 PM'
-    },
-    {
-      id: '2',
-      text: 'Hi Sarah! We have an exciting collaboration opportunity for our summer fashion campaign.',
-      sender: 'user',
-      timestamp: '10:30 AM'
-    },
-    {
-      id: '3',
-      text: 'That sounds interesting! Could you tell me more about the requirements?',
-      sender: 'creator',
-      timestamp: '10:32 AM'
-    },
-    {
-      id: '4',
-      text: "We're looking for 3 Instagram posts and 2 Stories featuring our new summer collection. Budget is $2,500.",
-      sender: 'user',
-      timestamp: '10:35 AM'
-    },
-    {
-      id: '5',
-      text: "Thanks for the proposal! I'd like to discuss the terms.",
-      sender: 'creator',
-      timestamp: '10:40 AM'
     }
   ];
 
@@ -107,14 +81,9 @@ const Inbox: React.FC = () => {
     'Add performance incentives'
   ];
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newMessage.trim()) return;
-    setNewMessage('');
-  };
-
   const handleSendProposal = () => {
-    // Handle sending proposal
+    setShowProposalForm(false);
+    // Add logic to send proposal
   };
 
   const selectedCreator = conversations.find(c => c.id === selectedConversation);
@@ -206,6 +175,13 @@ const Inbox: React.FC = () => {
             </div>
             <div className="flex items-center space-x-2">
               <button
+                onClick={() => setShowProposalForm(true)}
+                className="btn btn-outline flex items-center px-3 py-1"
+              >
+                <Plus size={16} className="mr-1" />
+                Quick Proposal
+              </button>
+              <button
                 onClick={() => setShowVoiceCall(true)}
                 className="btn btn-outline flex items-center px-3 py-1"
               >
@@ -250,94 +226,23 @@ const Inbox: React.FC = () => {
             ))}
           </div>
 
-          {/* Quick Proposal */}
-          <div className="border-t border-slate-200 p-4">
-            <h4 className="mb-3 text-sm font-medium text-slate-700">Quick Proposal</h4>
-            <div className="mb-4 grid grid-cols-3 gap-3">
-              <div>
-                <label className="mb-1 block text-xs text-slate-500">
-                  Compensation ($)
-                </label>
-                <input
-                  type="number"
-                  className="input text-sm"
-                  value={proposal.compensation}
-                  onChange={(e) => setProposal({ ...proposal, compensation: parseInt(e.target.value) })}
-                />
-              </div>
-              <div>
-                <label className="mb-1 block text-xs text-slate-500">
-                  Timeline
-                </label>
-                <input
-                  type="text"
-                  className="input text-sm"
-                  value={proposal.timeline}
-                  onChange={(e) => setProposal({ ...proposal, timeline: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="mb-1 block text-xs text-slate-500">
-                  Deliverables
-                </label>
-                <select
-                  className="input text-sm"
-                  value={proposal.deliverables.join(', ')}
-                  onChange={(e) => setProposal({ ...proposal, deliverables: e.target.value.split(', ') })}
-                >
-                  <option value="1 Instagram post, 3 stories">1 Post + 3 Stories</option>
-                  <option value="2 Instagram posts, 5 stories">2 Posts + 5 Stories</option>
-                  <option value="3 Instagram posts, 2 reels">3 Posts + 2 Reels</option>
-                </select>
-              </div>
-            </div>
-            <button
-              className="btn btn-primary w-full text-sm"
-              onClick={handleSendProposal}
-            >
-              Send Proposal
-            </button>
-
-            {/* AI Suggestions */}
-            <div className="mt-4">
-              <h4 className="mb-2 flex items-center text-xs font-medium text-slate-700">
-                <Sparkles size={14} className="mr-1 text-primary-500" />
-                AI Suggestions
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {aiSuggestions.map((suggestion, index) => (
-                  <div
-                    key={index}
-                    className="rounded-full bg-primary-50 px-3 py-1 text-xs text-primary-700"
-                  >
-                    💡 {suggestion}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* Message Input */}
-          <form onSubmit={handleSendMessage} className="border-t border-slate-200 p-4">
+          <div className="border-t border-slate-200 p-4">
             <div className="flex items-center space-x-2">
               <input
                 type="text"
                 className="input flex-1"
                 placeholder="Type your message..."
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
               />
               <button
-                type="submit"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-500 text-white hover:bg-primary-600"
-                disabled={!newMessage.trim()}
               >
                 <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
               </button>
             </div>
-          </form>
+          </div>
         </div>
       ) : (
         <div className="flex flex-1 items-center justify-center">
@@ -347,6 +252,104 @@ const Inbox: React.FC = () => {
             </svg>
             <h3 className="mt-2 text-sm font-medium text-slate-900">No conversation selected</h3>
             <p className="mt-1 text-sm text-slate-500">Choose a conversation from the list to start chatting</p>
+          </div>
+        </div>
+      )}
+
+      {/* Quick Proposal Form Modal */}
+      {showProposalForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-xl font-bold text-slate-800">Quick Proposal</h3>
+              <button
+                onClick={() => setShowProposalForm(false)}
+                className="rounded p-1 text-slate-500 hover:bg-slate-100"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="mb-1 block text-sm font-medium text-slate-700">
+                  Compensation ($)
+                </label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                  <input
+                    type="number"
+                    className="input pl-10"
+                    value={proposal.compensation}
+                    onChange={(e) => setProposal({ ...proposal, compensation: parseInt(e.target.value) })}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-sm font-medium text-slate-700">
+                  Timeline
+                </label>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                  <input
+                    type="text"
+                    className="input pl-10"
+                    value={proposal.timeline}
+                    onChange={(e) => setProposal({ ...proposal, timeline: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-sm font-medium text-slate-700">
+                  Deliverables
+                </label>
+                <select
+                  className="input"
+                  value={proposal.deliverables.join(', ')}
+                  onChange={(e) => setProposal({ ...proposal, deliverables: e.target.value.split(', ') })}
+                >
+                  <option value="1 Instagram post, 3 stories">1 Post + 3 Stories</option>
+                  <option value="2 Instagram posts, 5 stories">2 Posts + 5 Stories</option>
+                  <option value="3 Instagram posts, 2 reels">3 Posts + 2 Reels</option>
+                </select>
+              </div>
+
+              {/* AI Suggestions */}
+              <div className="rounded-lg bg-primary-50 p-4">
+                <h4 className="mb-2 flex items-center text-sm font-medium text-primary-900">
+                  <Sparkles size={14} className="mr-2 text-primary-500" />
+                  AI Suggestions
+                </h4>
+                <div className="space-y-2">
+                  {aiSuggestions.map((suggestion, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center rounded-lg bg-white p-2 text-sm text-primary-700"
+                    >
+                      <span className="mr-2">💡</span>
+                      {suggestion}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end space-x-3">
+              <button
+                className="btn btn-outline"
+                onClick={() => setShowProposalForm(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn btn-primary"
+                onClick={handleSendProposal}
+              >
+                Send Proposal
+              </button>
+            </div>
           </div>
         </div>
       )}
