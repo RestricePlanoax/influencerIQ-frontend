@@ -143,7 +143,7 @@ export const mockCreators: Creator[] = [
 // Mock Campaigns
 export const mockCampaigns: Campaign[] = [
   {
-    id: 'campaign1',
+    id: 1,
     name: 'Summer Fitness Challenge',
     status: 'active',
     objective: 'engagement',
@@ -169,7 +169,7 @@ export const mockCampaigns: Campaign[] = [
     }
   },
   {
-    id: 'campaign3',
+    id: 3,
     name: 'Holiday Beauty Collection',
     status: 'completed',
     objective: 'sales',
@@ -195,7 +195,7 @@ export const mockCampaigns: Campaign[] = [
     }
   },
   {
-    id: 'campaign4',
+    id: 4,
     name: 'Sustainable Fashion Line',
     status: 'paused',
     objective: 'awareness',
