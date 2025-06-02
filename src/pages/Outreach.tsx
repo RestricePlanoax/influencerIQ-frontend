@@ -6,7 +6,7 @@ import CommunicationLog from '../components/outreach/CommunicationLog';
 import Inbox from '../components/outreach/Inbox';
 import EmailTemplates from '../components/outreach/EmailTemplates';
 import OutreachManagement from '../components/outreach/OutreachManagement';
-import Calendar from '../components/outreach/Calendar';
+import Calendar from '../components/outreach/Calendar'
 import { mockOutreachContacts, mockEmailTemplates, mockCommunicationLogs } from '../mockData';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
