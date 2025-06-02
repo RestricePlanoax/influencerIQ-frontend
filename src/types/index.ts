@@ -123,6 +123,7 @@ export interface OutreachContact {
   lastContact: string;
 }
 
+
 export interface EmailTemplate {
   id: string;
   name: string;
