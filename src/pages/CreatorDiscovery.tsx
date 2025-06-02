@@ -193,7 +193,7 @@ const CreatorDiscovery: React.FC = () => {
             onClick: () => {
               // Clear all filters by re-fetching entire list
               setIsLoading(true);
-              fetch(`${baseUrl}/api/v1/creators`)
+              fetch(`${baseUrl}/v1/creators`)
                 .then((r) => r.json())
                 .then((data) => setCreators(data.creators))
                 .catch((e) => console.error(e))

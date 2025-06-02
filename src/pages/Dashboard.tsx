@@ -124,7 +124,7 @@ const Dashboard: React.FC = () => {
       setAiError(null);
 
       try {
-        const res = await fetch(`${baseUrl}/api/v1/ai-insights`);
+        const res = await fetch(`${baseUrl}/v1/ai-insights`);
         if (!res.ok) {
           throw new Error(`Failed to fetch AI insights: ${res.statusText}`);
         }
